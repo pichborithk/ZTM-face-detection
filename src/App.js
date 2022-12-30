@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
 import Clarifai from 'clarifai';
-import Navigation from './components/Navigation/Navigation';
-import Logo from './components/Logo/Logo';
-import Rank from './components/Rank/Rank';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Navigation from './components/Navigation';
+import Logo from './components/Logo';
+import Rank from './components/Rank';
+import ImageLinkForm from './components/ImageLinkForm';
+import FaceRecognition from './components/FaceRecognition';
 import './App.css';
 
 //You must add your own API key here from Clarifai.
@@ -22,11 +22,11 @@ class App extends Component {
     };
   }
 
-  onInputChange = (event) => {
+  onUrlInput = (event) => {
     this.setState({ input: event.target.value });
   };
 
-  onButtonSubmit = () => {
+  onDetectSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
@@ -43,8 +43,8 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
+          onUrlInput={this.onUrlInput}
+          onDetectSubmit={this.onDetectSubmit}
         />
         <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
