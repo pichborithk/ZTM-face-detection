@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ParticlesBg from 'particles-bg';
+// import ParticlesBg from 'particles-bg';
 import Clarifai from 'clarifai';
+import ParticlesBG from './components/ParticlesBG';
 import Navigation from './components/Navigation';
 import Logo from './components/Logo';
 import Rank from './components/Rank';
@@ -8,7 +9,6 @@ import ImageLinkForm from './components/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition';
 import './App.css';
 
-//You must add your own API key here from Clarifai.
 const app = new Clarifai.App({
   apiKey: 'ee560f912a91443880d70ee343d047d9',
 });
@@ -38,7 +38,8 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <ParticlesBg type='fountain' bg={true} />
+        {/* <ParticlesBg type='fountain' bg={true} /> */}
+        <ParticlesBG />
         <Navigation />
         <Logo />
         <Rank />
