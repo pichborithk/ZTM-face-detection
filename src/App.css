@@ -1,4 +1,13 @@
-.Tilt {
+.bounding-box {
+  position: absolute;
+  box-shadow: 0 0 0 3px #149df2 inset;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.tilt {
   background: linear-gradient(89deg, #ff5edf 0%, #04c8de 100%);
 }
 

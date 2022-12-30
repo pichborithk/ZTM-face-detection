@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import Particles from 'react-particles';
 import { loadFull } from 'tsparticles';
 
-const ParticlesContainer = () => {
+const ParticlesBg = () => {
   const options = useMemo(() => {
     return {
       fullScreen: {
@@ -30,4 +30,4 @@ const ParticlesContainer = () => {
   return <Particles init={particlesInit} options={options} />;
 };
 
-export default ParticlesContainer;
+export default ParticlesBg;
