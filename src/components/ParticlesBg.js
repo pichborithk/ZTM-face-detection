@@ -16,8 +16,8 @@ const ParticlesBg = () => {
         modes: { repulse: { distance: 100 }, push: { quantity: 10 } },
       },
       particles: {
-        links: { enable: true, distance: 150 },
-        move: { enable: true, speed: { min: 1, max: 5 } },
+        links: { enable: true, distance: 100 },
+        move: { enable: true, speed: { min: 1, max: 3 } },
         size: { value: { min: 1, max: 3 } },
         opacity: { value: { min: 0.1, max: 0.7 } },
       },

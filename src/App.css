@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 
-.tilt {
+.my-color {
   background: linear-gradient(to left, #1565c0, #b92b27);
 }
 
@@ -19,9 +19,8 @@
   z-index: 1;
 }
 
-.form {
+.url-form {
   width: 700px;
-  background: linear-gradient(to left, #1565c0, #b92b27);
 }
 
 .App {
