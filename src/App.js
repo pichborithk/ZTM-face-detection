@@ -63,29 +63,25 @@ class App extends Component {
   };
 
   render() {
+    const { onUrlInput, onDetectSubmit, onRouteChange } = this;
+    const { imageUrl, box, route, isSignedIn } = this.state;
     return (
       <div className='App'>
         <ParticlesBg />
-        <Navigation
-          onRouteChange={this.onRouteChange}
-          isSignedIn={this.state.isSignedIn}
-        />
+        <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} />
         <Logo />
-        {this.state.route === 'signin' ? (
-          <SignIn onRouteChange={this.onRouteChange} />
-        ) : this.state.route === 'register' ? (
-          <Register onRouteChange={this.onRouteChange} />
+        {route === 'signin' ? (
+          <SignIn onRouteChange={onRouteChange} />
+        ) : route === 'register' ? (
+          <Register onRouteChange={onRouteChange} />
         ) : (
           <>
             <Rank />
             <ImageLinkForm
-              onUrlInput={this.onUrlInput}
-              onDetectSubmit={this.onDetectSubmit}
+              onUrlInput={onUrlInput}
+              onDetectSubmit={onDetectSubmit}
             />
-            <FaceRecognition
-              box={this.state.box}
-              imageUrl={this.state.imageUrl}
-            />
+            <FaceRecognition box={box} imageUrl={imageUrl} />
           </>
         )}
       </div>
