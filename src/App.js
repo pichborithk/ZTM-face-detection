@@ -23,8 +23,27 @@ class App extends Component {
       box: {},
       route: 'signin',
       isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: '',
+      },
     };
   }
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
 
   onRouteChange = (route) => {
     if (route === 'home') {
@@ -58,25 +77,42 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      .then((response) => this.faceLocation(response))
+      .then((response) => {
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: this.state.user.id,
+            }),
+          })
+            .then((response) => response.json())
+            .then((entries) =>
+              this.setState(
+                Object.assign(this.state.user, { entries: entries })
+              )
+            );
+        }
+        this.faceLocation(response);
+      })
       .catch((err) => console.log(err));
   };
 
   render() {
-    const { onUrlInput, onDetectSubmit, onRouteChange } = this;
-    const { imageUrl, box, route, isSignedIn } = this.state;
+    const { onUrlInput, onDetectSubmit, onRouteChange, loadUser } = this;
+    const { imageUrl, box, route, isSignedIn, user } = this.state;
     return (
       <div className='App'>
         <ParticlesBg />
         <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} />
         <Logo />
         {route === 'signin' ? (
-          <SignIn onRouteChange={onRouteChange} />
+          <SignIn onRouteChange={onRouteChange} loadUser={loadUser} />
         ) : route === 'register' ? (
           <Register onRouteChange={onRouteChange} />
         ) : (
           <>
-            <Rank />
+            <Rank name={user.name} entries={user.entries} />
             <ImageLinkForm
               onUrlInput={onUrlInput}
               onDetectSubmit={onDetectSubmit}
