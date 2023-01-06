@@ -5,13 +5,13 @@ import Navigation from './components/Navigation';
 import Logo from './components/Logo';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
-import Rank from './components/Rank';
+import Score from './components/Score';
 import ImageLinkForm from './components/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition';
 import './App.css';
 
 const app = new Clarifai.App({
-  apiKey: 'ee560f912a91443880d70ee343d047d9',
+  apiKey: '26fabf9df0894e8e8ce59c8abf8955a6',
 });
 
 class App extends Component {
@@ -76,7 +76,7 @@ class App extends Component {
   onDetectSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .predict('face-detection', this.state.input)
       .then((response) => {
         if (response) {
           fetch('http://localhost:3000/image', {
@@ -112,7 +112,7 @@ class App extends Component {
           <Register onRouteChange={onRouteChange} />
         ) : (
           <>
-            <Rank name={user.name} entries={user.entries} />
+            <Score name={user.name} entries={user.entries} />
             <ImageLinkForm
               onUrlInput={onUrlInput}
               onDetectSubmit={onDetectSubmit}
