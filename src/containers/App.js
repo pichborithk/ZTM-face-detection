@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Clarifai from 'clarifai';
 import ParticlesBg from '../components/ParticlesBg';
 import Navigation from '../components/Navigation';
 import Logo from '../components/Logo';

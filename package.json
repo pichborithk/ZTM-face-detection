@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "clarifai": "^2.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-parallax-tilt": "^1.7.67",
+    "react-parallax-tilt": "^1.7.83",
     "react-particles": "^2.7.1",
     "react-scripts": "^5.0.1",
     "tachyons": "^4.12.0",
