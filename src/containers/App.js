@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
 import Clarifai from 'clarifai';
-import ParticlesBg from './components/ParticlesBg';
-import Navigation from './components/Navigation';
-import Logo from './components/Logo';
-import SignIn from './components/SignIn';
-import Register from './components/Register';
-import Score from './components/Score';
-import ImageLinkForm from './components/ImageLinkForm';
-import FaceRecognition from './components/FaceRecognition';
+import ParticlesBg from '../components/ParticlesBg';
+import Navigation from '../components/Navigation';
+import Logo from '../components/Logo';
+import SignIn from '../components/SignIn';
+import Register from '../components/Register';
+import Score from '../components/Score';
+import ImageLinkForm from '../components/ImageLinkForm';
+import FaceRecognition from '../components/FaceRecognition';
 import './App.css';
 
 const app = new Clarifai.App({
   apiKey: '26fabf9df0894e8e8ce59c8abf8955a6',
 });
+
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: '',
+  },
+};
 
 class App extends Component {
   constructor() {
@@ -48,8 +63,8 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === 'home') {
       this.setState({ isSignedIn: true });
-    } else {
-      this.setState({ isSignedIn: false });
+    } else if (route === 'signin') {
+      this.setState(initialState);
     }
     this.setState({ route: route });
   };
