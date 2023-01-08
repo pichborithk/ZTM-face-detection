@@ -8,6 +8,9 @@ This is the final project for the Zero to Mastery: Web Developer 2022 course. Th
 - React: This project uses React for the Front-End.
 - Single page application: The entire application is built as a single page, allowing for a smooth and seamless user experience.
 - API: This project connects to a Back-End API in order to retrieve and display data.
+- HTTP Requests: The backend handles HTTP requests from the Front-End to retrieve and store data.
+- AJAX: The Front-End uses AJAX to communicate with the Back-End.
+- JSON: The Back-End sends and receives data in the form of JSON.
 
 ## Requirements
 
