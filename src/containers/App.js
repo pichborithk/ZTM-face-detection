@@ -12,7 +12,7 @@ import './App.css';
 const initialState = {
   input: '',
   imageUrl: '',
-  box: {},
+  boxes: [],
   route: 'signin',
   isSignedIn: false,
   user: {
@@ -27,20 +27,7 @@ const initialState = {
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: '',
-      },
-    };
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -68,19 +55,21 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  faceLocation = (data) => {
-    const faceLocationData =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('input-image');
-    const height = Number(image.height);
-    const width = Number(image.width);
-    const boxData = {
-      topRow: faceLocationData.top_row * height,
-      rightCol: width - faceLocationData.right_col * width,
-      bottomRow: height - faceLocationData.bottom_row * height,
-      leftCol: faceLocationData.left_col * width,
-    };
-    this.setState({ box: boxData });
+  faceLocations = (data) => {
+    const boxesData = data.outputs[0].data.regions.map((faceData) => {
+      const faceLocationData = faceData.region_info.bounding_box;
+      const image = document.getElementById('input-image');
+      const height = Number(image.height);
+      const width = Number(image.width);
+      return {
+        topRow: faceLocationData.top_row * height,
+        rightCol: width - faceLocationData.right_col * width,
+        bottomRow: height - faceLocationData.bottom_row * height,
+        leftCol: faceLocationData.left_col * width,
+      };
+    });
+
+    this.setState({ boxes: boxesData });
   };
 
   onDetectSubmit = () => {
@@ -109,14 +98,14 @@ class App extends Component {
               )
             );
         }
-        this.faceLocation(data);
+        this.faceLocations(data);
       })
       .catch((err) => console.log(err));
   };
 
   render() {
     const { onUrlInput, onDetectSubmit, onRouteChange, loadUser } = this;
-    const { imageUrl, box, route, isSignedIn, user } = this.state;
+    const { imageUrl, boxes, route, isSignedIn, user } = this.state;
     return (
       <div className='App'>
         <ParticlesBg />
@@ -133,7 +122,7 @@ class App extends Component {
               onUrlInput={onUrlInput}
               onDetectSubmit={onDetectSubmit}
             />
-            <FaceRecognition box={box} imageUrl={imageUrl} />
+            <FaceRecognition boxes={boxes} imageUrl={imageUrl} />
           </>
         )}
       </div>
