@@ -16,7 +16,10 @@ class ProfileIcon extends React.Component {
   }
 
   toggle() {
-    this.setState((prevState) => ({ dropdownOpen: !prevState.dropdownOpen }));
+    this.setState((prevState) => ({
+      ...prevState,
+      dropdownOpen: !prevState.dropdownOpen,
+    }));
   }
 
   render() {
@@ -43,7 +46,9 @@ class ProfileIcon extends React.Component {
             }}
           >
             <DropdownItem header>User Name</DropdownItem>
-            <DropdownItem>View Profile</DropdownItem>
+            <DropdownItem onClick={this.props.toggleModal}>
+              View Profile
+            </DropdownItem>
             <DropdownItem onClick={() => this.props.onRouteChange('signin')}>
               Sign Out
             </DropdownItem>
