@@ -38,3 +38,16 @@
   height: 100%;
   width: 100%;
 }
+
+.modal-close {
+  position: relative;
+  top: 1rem;
+  right: 2rem;
+  font-size: 3rem;
+  font-style: bold;
+  cursor: pointer;
+  z-index: 10;
+}
+.modal-close:hove {
+  color: gray;
+}
