@@ -37,7 +37,8 @@ class Register extends React.Component {
         if (data.id) {
           this.props.onRouteChange('signin');
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
