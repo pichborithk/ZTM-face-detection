@@ -24,6 +24,8 @@ const initialState = {
     email: '',
     entries: 0,
     joined: '',
+    age: '',
+    pet: '',
   },
 };
 
@@ -41,6 +43,8 @@ class App extends Component {
         email: data.email,
         entries: data.entries,
         joined: data.joined,
+        age: data.age,
+        pet: data.pet,
       },
     });
   };
@@ -135,7 +139,11 @@ class App extends Component {
           <>
             {isProfileOpen && (
               <Modal>
-                <Profile toggleModal={toggleModal} />
+                <Profile
+                  toggleModal={toggleModal}
+                  user={user}
+                  loadUser={loadUser}
+                />
               </Modal>
             )}
             <Score name={user.name} entries={user.entries} />
