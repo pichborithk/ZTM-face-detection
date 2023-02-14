@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileIcon from './ProfileIcon';
 
-const Navigation = ({ onRouteChange, isSignedIn }) => {
+const Navigation = ({ onRouteChange, isSignedIn, toggleModal }) => {
   if (isSignedIn) {
     return (
       <>
@@ -12,7 +12,10 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
           >
             Sign Out
           </p> */}
-          <ProfileIcon onRouteChange={onRouteChange} />
+          <ProfileIcon
+            onRouteChange={onRouteChange}
+            toggleModal={toggleModal}
+          />
         </nav>
       </>
     );

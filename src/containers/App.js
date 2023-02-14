@@ -7,7 +7,9 @@ import Register from '../components/Register';
 import Score from '../components/Score';
 import ImageLinkForm from '../components/ImageLinkForm';
 import FaceRecognition from '../components/FaceRecognition';
+import Modal from './Modal';
 import './App.css';
+import Profile from '../components/Profile';
 
 const initialState = {
   input: '',
@@ -15,6 +17,7 @@ const initialState = {
   boxes: [],
   route: 'signin',
   isSignedIn: false,
+  isProfileOpen: false,
   user: {
     id: '',
     name: '',
@@ -103,13 +106,26 @@ class App extends Component {
       .catch((err) => console.log(err));
   };
 
+  toggleModal = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      isProfileOpen: !prevState.isProfileOpen,
+    }));
+  };
+
   render() {
-    const { onUrlInput, onDetectSubmit, onRouteChange, loadUser } = this;
-    const { imageUrl, boxes, route, isSignedIn, user } = this.state;
+    const { onUrlInput, onDetectSubmit, onRouteChange, loadUser, toggleModal } =
+      this;
+    const { imageUrl, boxes, route, isSignedIn, user, isProfileOpen } =
+      this.state;
     return (
       <div className='App'>
         <ParticlesBg />
-        <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} />
+        <Navigation
+          onRouteChange={onRouteChange}
+          isSignedIn={isSignedIn}
+          toggleModal={toggleModal}
+        />
         <Logo />
         {route === 'signin' ? (
           <SignIn onRouteChange={onRouteChange} loadUser={loadUser} />
@@ -117,6 +133,11 @@ class App extends Component {
           <Register onRouteChange={onRouteChange} />
         ) : (
           <>
+            {isProfileOpen && (
+              <Modal>
+                <Profile toggleModal={toggleModal} />
+              </Modal>
+            )}
             <Score name={user.name} entries={user.entries} />
             <ImageLinkForm
               onUrlInput={onUrlInput}
