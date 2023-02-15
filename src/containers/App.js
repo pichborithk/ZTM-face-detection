@@ -108,15 +108,20 @@ class App extends Component {
         leftCol: faceLocationData.left_col * width,
       };
     });
-
     this.setState({ boxes: boxesData });
   };
 
   onDetectSubmit = () => {
+    const token = window.sessionStorage.getItem('token');
     this.setState({ imageUrl: this.state.input });
     fetch('http://localhost:3000/imageUrl', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: token
+        ? {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          }
+        : { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         input: this.state.input,
       }),
@@ -126,7 +131,12 @@ class App extends Component {
         if (data) {
           fetch('http://localhost:3000/image', {
             method: 'put',
-            headers: { 'Content-Type': 'application/json' },
+            headers: token // need to user ternary here, because if token is null go through JSON become string
+              ? {
+                  'Content-Type': 'application/json',
+                  Authorization: token,
+                }
+              : { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               id: this.state.user.id,
             }),
